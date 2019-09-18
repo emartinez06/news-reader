@@ -1,0 +1,14 @@
+# Project files
+.idea/
+.vs/
+.vscode/
+.project
+out
+gen
+
+# Dependencies
+node_modules/
+bower_components
+
+#others
+keys.txt
