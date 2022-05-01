@@ -1,10 +1,8 @@
-const apiKey = '';
 const apiUrl = 'https://newsapi.org/v2/everything?q=';
 const apiParameters = '&language=en&sortBy=relevancy&apiKey=';
 const defaultSearch = 'web+development';
 const main = document.querySelector('main');
 const sourceSelector = document.querySelector('#sources');
-//const searchSelector = document.querySelector('#search');
 
 window.addEventListener('load', e => {
     sourceSelector.addEventListener('change', evt => updateNews(evt.target.value));
@@ -15,7 +13,11 @@ window.addEventListener('load', e => {
 });
 
 async function updateNews(search = defaultSearch){
-    const response = await fetch(apiUrl + search + apiParameters + apiKey);
+    const key = await fetch('http://localhost:3000/key');
+    const keyResult = await key.json();
+    const apiKey = keyResult.key;
+    const url = `${apiUrl}${search}${apiParameters}${apiKey}`;
+    const response = await fetch(url);
     const json = await response.json();
 
     main.innerHTML = json.articles.map(createArticle).join("\n");
